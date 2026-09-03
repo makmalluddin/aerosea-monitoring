@@ -1,4 +1,4 @@
-// update information simple
+// try something good
 async function fetchData() {
   try {
     const response = await fetch('http://localhost:8080/data');
