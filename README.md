@@ -1,5 +1,4 @@
 # Ship Mapping Website
-
 Welcome to the Ship Mapping Website project! This repository contains the source code for a web application that maps ships using AIS (Automatic Identification System) data, implemented with simple JavaScript. This project is perfect for maritime enthusiasts, developers interested in GIS applications, and anyone looking to learn more about real-time ship tracking.
 
 ## Features
