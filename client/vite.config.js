@@ -8,4 +8,12 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    host: true,
+    port: 5173,
+    watch: {
+      usePolling: true
+    },
+
+  }
 })

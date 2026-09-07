@@ -1,0 +1,31 @@
+# Konfigurasi docker compose 
+
+services:
+  mongodb:
+    image: mongo:7.0 
+    container_name: aerosea_mongodb 
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend/ 
+    container_name: aerosea_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./client/ 
+    container_name: aerosea_frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+# Volume yang bisa digunakan ulang 
+volumes:
+  mongo_data:
