@@ -5,7 +5,7 @@ const app = express();
 
 // routing basic
 app.get('/', (req, res) => {
-  res.send('ini adalah routing root');
+  res.send('baru ini adalah routing dari root');
 })
 
 app.get('/kapal', (req, res) => {

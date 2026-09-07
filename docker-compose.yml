@@ -12,6 +12,9 @@ services:
     build: ./backend/ 
     container_name: aerosea_backend
     restart: always
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     ports:
       - "5000:5000"
     depends_on:
@@ -21,6 +24,9 @@ services:
     build: ./client/ 
     container_name: aerosea_frontend
     restart: always
+    volumes:
+      - ./client:/app
+      - /app/node_modules
     ports:
       - "5173:5173"
     depends_on:
