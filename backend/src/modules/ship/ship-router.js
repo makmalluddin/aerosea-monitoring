@@ -4,7 +4,7 @@ const router = express.Router();
 const shipController = require('./ship-controller.js')
 
 // Create Route get 
-router.get('/ship', shipController.getAllShip);
+router.get('/', shipController.getAllShip);
 
 // Export module 
 module.exports = router;
