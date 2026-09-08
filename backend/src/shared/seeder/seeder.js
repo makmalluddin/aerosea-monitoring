@@ -7,12 +7,12 @@ const path = require('path');
 const seedData = async () => {
   try {
     // Hitung data di database dahulu
-    shipTotal = await Ship.countDocuments();
-    aircraftTotal = await Aircraft.countDocuments();
+    const shipTotal = await Ship.countDocuments();
+    const aircraftTotal = await Aircraft.countDocuments();
 
     // Path directory
-    shipDir = path.join(__dirname, './ship.json');
-    aircraftDir = path.join(__dirname, './aircraft.json');
+    const shipDir = path.join(__dirname, './ship.json');
+    const aircraftDir = path.join(__dirname, './aircraft.json');
 
     // Pengkondisian berdasarkan kondisi database 
     if (shipTotal === 0 && aircraftTotal === 0) {

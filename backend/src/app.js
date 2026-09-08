@@ -1,15 +1,21 @@
-// basic app
+// Import all needs 
 const express = require('express');
+const routeaircraft = require('./modules/aircraft/aircraft-router.js')
+const routeship = require('./modules/ship/ship-router.js')
+
+// Express app 
 const app = express();
 
 // routing basic
 app.get('/', (req, res) => {
-  res.send('baru ini adalah routing dari root');
+  res.send('Root Routing');
 })
 
-app.get('/kapal', (req, res) => {
-  res.send('ini adalah routing /kapal')
-});
+// aircraft routing 
+app.use('/api/aircraft', routeaircraft)
+
+// ship routing 
+app.use('/api/ship', routeship)
 
 // export modules
 module.exports = app;
