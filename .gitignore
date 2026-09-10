@@ -1,3 +1,4 @@
+# base ignore
 PRD.md
 Teknis.md
-.env
+**/.env
