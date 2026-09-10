@@ -1,7 +1,7 @@
 // Import all needs
 const axios = require('axios');
 const { getToken } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/token-manager.js');
-
+const { formatter } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/formatter-aircraft.js');
 // Function to fetch data  
 const fetchData = async () => {
   try {
@@ -24,10 +24,9 @@ const fetchData = async () => {
     });
 
     // Aircraft data 
-    const nowAircraft = response.data;
-    console.log(nowAircraft);
-
-    return nowAircraft;
+    const nowAircraft = response.data.states;
+    const cleanData = formatter(nowAircraft);
+    return cleanData;
   }
 
   catch (error) {
@@ -35,7 +34,12 @@ const fetchData = async () => {
   }
 }
 
-fetchData();
-// Function cleaning data 
-// Function fetch data 
-// Start function 
+const testFunction = async () => {
+  const data = await fetchData();
+
+  console.log(data)
+};
+
+testFunction();
+// Export module function 
+//module.exports = { fetchData };
