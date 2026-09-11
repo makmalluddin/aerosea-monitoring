@@ -1,5 +1,5 @@
 // Function formatter data
-const formatter = (rawData) => {
+const aircraftFormatter = (rawData) => {
   return rawData.map((aircraft, index) => {
     return {
       callsign: (aircraft[1]).trim(),
@@ -16,4 +16,4 @@ const formatter = (rawData) => {
   });
 }
 
-module.exports = { formatter };
+module.exports = { aircraftFormatter };
