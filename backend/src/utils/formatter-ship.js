@@ -1,13 +1,14 @@
-// Import all needs 
-
 // Funtion formatter
 const shipFormatter = (rawShip) => {
-  return rawShip.map((Ship) => {
+  return rawShip.map((Ship, index) => {
     return {
-      mmsi: Ship[1][0],
-      shipname: Ship[1][1],
-      longitude: Ship[1][2],
-      latitude: Ship[1][3],
+      mmsi: Ship.Metadata.MMSI,
+      shipname: Ship.MetaData.ShipName,
+      longitude: Ship.MetaData.Longitude,
+      latitude: Ship.MetaData.Latitude,
+      cog: Ship.Message.Cog,
+      heading: Ship.Message.TrueHeading,
+      sog: Ship.Message.Sog,
     }
   });
 };
