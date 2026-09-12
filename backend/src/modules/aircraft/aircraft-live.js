@@ -40,5 +40,7 @@ const testFunction = async () => {
   console.log(data)
 };
 
+testFunction();
+
 // Export module function 
 module.exports = { fetchData };
