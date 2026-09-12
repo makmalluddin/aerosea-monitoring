@@ -5,9 +5,6 @@ const API_KEY = process.env.AISSTREAM_API_KEY;
 const { shipFormatter } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/formatter-ship.js')
 
 // Important variable
-const ws = new WebSocket("wss://stream.aisstream.io/v0/stream", {
-  perMessageDeflate: true
-});
 const areaIdn = [[
   [-10.171, 95.316],
   [5.889, 140.718]
@@ -16,39 +13,62 @@ const areaIdn = [[
 // Temporary Data 
 const temporaryData = new Map();
 
-// Connect to Aisstream
-ws.on("open", () => ws.send(JSON.stringify({
-  APIKey: API_KEY,
-  BoundingBoxes: areaIdn,
-  FilterMessageTypes: ["PositionReport"]
-})));
+// Function to handle data
+const shipLive = () => {
 
-// Get data 
-// ws.on("message", data => console.log(JSON.parse(data)));
-ws.on("message", (data) => {
-  jsonData = JSON.parse(data.toString());
+  // Declare websocket
+  const ws = new WebSocket("wss://stream.aisstream.io/v0/stream", {
+    perMessageDeflate: true
+  });
 
-  // Pass another MessageType 
-  if (jsonData.MessageType != "PositionReport") {
-    return;
-  };
+  // Connect to Aisstream
+  ws.on("open", () => ws.send(JSON.stringify({
+    APIKey: API_KEY,
+    BoundingBoxes: areaIdn,
+    FilterMessageTypes: ["PositionReport"]
+  })));
 
-  // Format & save data to temporaryData
-  cleanData = shipFormatter(jsonData);
-  temporaryData.set(cleanData.mmsi, cleanData);
+  // Get message 
+  ws.on("message", (data) => {
+    jsonData = JSON.parse(data.toString());
 
-  console.log(temporaryData);
-});
+    // Pass another MessageType 
+    if (jsonData.MessageType != "PositionReport") {
+      return;
+    };
 
-// Get error 
-ws.on("error", (error) => {
-  console.error("Error jaringan: ", error.message);
-});
+    // Format & save data to temporaryData
+    cleanData = shipFormatter(jsonData);
+    temporaryData.set(cleanData.mmsi, cleanData);
+  });
 
-// Get message close and reconnect 
-ws.on("close", (code, reason) => {
-  console.log(`Koneksi diputus, kode: ${code}`);
-  console.log(`Alasan: ${reason.toString()}`);
-});
+  // Get error 
+  ws.on("error", (error) => {
+    console.error("Error jaringan: ", error.message);
+  });
 
-// Export modules 
+  // Get message close and reconnect 
+  ws.on("close", (code, reason) => {
+    console.log(`Koneksi diputus, kode: ${code}`);
+    console.log(`Alasan: ${reason.toString()}`);
+
+    // Reconnect again 
+    setTimeout(() => {
+      shipLive();
+    }, 5000);
+  });
+};
+
+const aisService = () => {
+  // Run socket
+  shipLive();
+  setInterval(() => {
+    console.log(temporaryData);
+  }, 2000)
+
+};
+
+aisService();
+
+// Export modules
+module.exports = { aisService };
