@@ -63,12 +63,12 @@ const aisService = () => {
   // Run socket
   shipLive();
   setInterval(() => {
-    console.log(temporaryData);
+    if (temporaryData.size > 0) {
+      console.log(temporaryData);
+      temporaryData.clear()
+    }
   }, 2000)
-
 };
-
-aisService();
 
 // Export modules
 module.exports = { aisService };
