@@ -1,7 +1,8 @@
 // Import all needs
 const axios = require('axios');
-const { getToken } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/token-manager.js');
-const { aircraftFormatter } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/formatter-aircraft.js');
+const { getToken } = require('../../utils/token-manager.js');
+const { aircraftFormatter } = require('../../utils/formatter-aircraft.js');
+
 // Function to fetch data  
 const fetchData = async () => {
   try {
@@ -26,6 +27,7 @@ const fetchData = async () => {
     // Aircraft data 
     const nowAircraft = response.data.states;
     const cleanData = aircraftFormatter(nowAircraft);
+
     return cleanData;
   }
 
@@ -34,11 +36,14 @@ const fetchData = async () => {
   }
 }
 
-const testFunction = async () => {
-  const data = await fetchData();
-
-  console.log(data)
-};
+// Function to streaming data in socket.io 
+const airService = (io) => {
+  setInterval(async () => {
+    // Fetch and send data with socket.io
+    const getData = await fetchData();
+    io.emit('aircraft-pipe', getData);
+  }, 10000)
+}
 
 // Export module function 
-module.exports = { fetchData };
+module.exports = { airService };

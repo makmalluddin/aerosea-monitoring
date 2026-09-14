@@ -1,5 +1,5 @@
 // main app server 
-const app = require('./app');
+const server = require('./app.js');
 const mongoose = require('mongoose');
 const seedData = require('./shared/seeder/seeder.js')
 
@@ -18,13 +18,13 @@ const startServer = async () => {
     await seedData();
 
     // activate app 
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log('App Starting')
     })
   }
 
   catch (error) {
-    console.error('Failed to start Apps')
+    console.error('Failed to start Apps', error)
   }
 }
 

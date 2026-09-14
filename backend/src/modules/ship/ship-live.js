@@ -2,9 +2,9 @@
 require('dotenv').config();
 const WebSocket = require('ws')
 const API_KEY = process.env.AISSTREAM_API_KEY;
-const { shipFormatter } = require('/home/makmalluddin/Projects/aerosea-monitoring/backend/src/utils/formatter-ship.js')
+const { shipFormatter } = require('../../utils/formatter-ship.js')
 
-// Important variable
+// Indonesia Boundaries 
 const areaIdn = [[
   [-10.171, 95.316],
   [5.889, 140.718]
@@ -59,13 +59,16 @@ const shipLive = () => {
   });
 };
 
-const aisService = () => {
+const aisService = (io) => {
   // Run socket
   shipLive();
   setInterval(() => {
     if (temporaryData.size > 0) {
-      console.log(temporaryData);
-      temporaryData.clear()
+
+      // Send data with socket.io 
+      io.emit('ship-pipe', Array.from(temporaryData.values()));
+      temporaryData.clear();
+
     }
   }, 2000)
 };
