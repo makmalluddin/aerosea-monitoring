@@ -66,7 +66,7 @@ const aisService = (io) => {
     if (temporaryData.size > 0) {
 
       // Send data with socket.io 
-      io.emit('ship-pipe', Array.from(temporaryData.values()));
+      io.to('ship-room').emit('ship-pipe', Array.from(temporaryData.values()));
       temporaryData.clear();
 
     }

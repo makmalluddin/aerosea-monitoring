@@ -41,7 +41,7 @@ const airService = (io) => {
   setInterval(async () => {
     // Fetch and send data with socket.io
     const getData = await fetchData();
-    io.emit('aircraft-pipe', getData);
+    io.to('aircraft-room').emit('aircraft-pipe', getData);
   }, 10000)
 }
 

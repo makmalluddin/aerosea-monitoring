@@ -30,6 +30,13 @@ const io = new Server(server, {
 
 // Listener 
 io.on('connection', (socket) => {
+  // Manage rooms
+  socket.on('join-room', (roomName) => {
+    socket.join(roomName);
+  });
+  socket.on('leave-room', (roomName) => {
+    socket.leave(roomName);
+  });
   console.log('Client terhubung, ID :', socket.id);
 
   socket.on('disconnect', () => {
