@@ -4,3 +4,9 @@
   width: 100%;
   height: 100vh;
 }
+
+@theme {
+  --color-brand-primary: #3b82f6;
+  --color-bg-primary: #f9f9f9;
+  --color-brand-dark: #1f2937;
+}

@@ -1,0 +1,39 @@
+Day 1 :
+- Susun tata letak utama dengan Tailwind CSS, meliputi sidebar navigasi dan wadah peta. 
+  Bangun useContext untuk mendistribusikan state mode aktif (Kapal atau Pesawat) agar 
+  mudah diakses secara global.
+- Buat kerangka antarmuka komponen kontrol playback serta panel detail yang logikanya 
+  dibedakan antara mode Live dan Historis.
+
+Day 2 :
+- Integrasikan react-leaflet. Pastikan alur toggle bekerja dengan baik, di mana pergantian 
+  mode akan membersihkan seluruh marker yang sedang tampil di layar dan mereset antarmuka.
+
+Day 3 :
+- Hubungkan mode "Live" menggunakan useEffect. Gunakan useRef untuk mengumpulkan pembaruan 
+  dalam jendela waktu pendek sebelum diterapkan ke peta secara batch untuk menghindari render 
+  ulang yang berlebihan
+- 
+
+Day 4:
+- Bangun fungsi penarikan data ke endpoint seperti /api/ships/historical saat pengguna memilih 
+  submode "Historis", lalu simpan data yang diterima sebagai satu urutan utuh di memori frontend.
+- Rakit logika kontrol pemutaran; fungsi Play/Pause harus bisa mengatur jalan dan berhentinya 
+  mesin ini melangkah maju melalui urutan data
+
+Day 5: 
+- Terapkan interaksi marker. Klik ikon di mode Historis harus menghentikan mesin playback, 
+  sedangkan klik di mode Live hanya mengambil snapshot data sesaat tanpa mendengarkan pembaruan 
+  lebih lanjut untuk entitas tersebut. 
+
+Day 6:
+- Aktifkan mekanisme clustering otomatis di Leaflet yang akan bekerja begitu jumlah marker kapal 
+  yang tampil melewati ambang batas yang ditentukan.
+- Terapkan React.memo secara strategis. Pastikan indikator jam lokal (WIB) yang terus berjalan 
+  selama submode Live aktif tidak memicu render ulang pada komponen peta utama.
+
+Day 7:
+- Pastikan fungsi cleanup pada useEffect benar-benar menghentikan koneksi live atau proses playback 
+  yang aktif saat user berpindah ke mode lain.
+- Perhalus warna tooltip dan visualisasi komponen menggunakan Tailwind.
+- Jalankan simulasi penuh dari membuka halaman hingga berpindah-pindah mode secara cepat.

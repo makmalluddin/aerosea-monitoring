@@ -1,4 +1,39 @@
-# base ignore
+# Env variables & secrets 
 PRD.md
 Teknis.md
 **/.env
+*.pem
+*.key
+
+# Depedencies
+node_modules/
+.npm/
+.eslintcache
+dist/
+build/
+out/
+
+# Logs & Debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.logs/
+
+# Docker & Containers
+/data/
+/*_data/
+.docker/
+
+# Swap, backup, dan undo Neovim
+.*.swp
+*.swp
+*.swo
+.netrwhist
+undo/
+.nvim/
+.shada/
+
+# OS general
+.DS_Store
+Thumbs.db
