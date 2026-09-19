@@ -8,8 +8,8 @@ function MapCanvas() {
     <MapContainer center={centerMap} className='flex-1 relative z-0' zoom={5} scrollWheelZoom={true}>
       {/* Map openstreetmap  */}
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+        attribution='Tiles &copy; <a href="https://www.esri.com/">Esri</a>'
       />
 
       {/* Marker example  */}
