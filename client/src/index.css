@@ -6,7 +6,20 @@
 }
 
 @theme {
-  --color-brand-primary: #3b82f6;
-  --color-bg-primary: #f9f9f9;
-  --color-brand-dark: #1f2937;
+  --color-bg-color: #F8F9FA;         /* Off-white canvas */
+  --color-surface-color: #FFFFFF;    /* Pure white for cards */
+  --color-text-primary: #1C1917;     /* Warm Charcoal */
+  --color-text-secondary: #57534E;   /* Stone Gray */
+  --color-accent-color: #60A5FA;     /* Soft Cerulean */
+  --color-accent-hover: #3B82F6;     /* Darker Cerulean */
+  --color-border-color: #E7E5E4;     /* Soft border */
+
+
+  --animate-shimmer: shimmer 2.5s infinite;
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-150%) skewX(-12deg); }
+    100% { transform: translateX(150%) skewX(-12deg); }
+  }
+
 }
