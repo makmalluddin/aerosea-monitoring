@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
 @import "tailwindcss";
 
 .leaflet-container {
@@ -13,13 +14,21 @@
   --color-accent-color: #60A5FA;     /* Soft Cerulean */
   --color-accent-hover: #3B82F6;     /* Darker Cerulean */
   --color-border-color: #E7E5E4;     /* Soft border */
-
-
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
   --animate-shimmer: shimmer 2.5s infinite;
+
+  --radius-md: 6px;
   
   @keyframes shimmer {
     0% { transform: translateX(-150%) skewX(-12deg); }
     100% { transform: translateX(150%) skewX(-12deg); }
   }
+}
 
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
 }
