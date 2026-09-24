@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import Sidebar from "./Sidebar";
 import MapCanvas from "../maps/MapCanvas";
+import InformationBox from "../../utils/InformationBox";
 
 function Dashboard() {
   const centerMap = [-2.548926, 118.014863];
@@ -33,17 +33,25 @@ function Dashboard() {
 
         {/* Layer Menu  */}
         <div className="absolute top-20 left-20 z-20">
-          <h1 className="text-2xl text-text-primary">
+          <h1 className="text-3xl text-text-primary">
             Aerosea Monitoring
           </h1>
-          <p className="mt-4 w-3/7 text-text-secondary">
-            Platform untuk visualisasi kapal dan pesawat menggunakan
-            data historis dan data real-time. Projek ini dibangun
-            dengan :
-            <ul className="list-disc">
-              <li className="">Frontend: </li>
-            </ul>
+
+          <p className="my-2 w-2/5 text-text-secondary">
+            Platform monitoring yang menggabungkan data
+            real-time dan historis dari lalu lintas udara
+            dan perairan di wilayah Indonesia.
           </p>
+
+          <ul className="list-inside list-disc">
+            <li>Dual Mode</li>
+            <li>Real-time Data</li>
+            <li>Air And Sea Scope</li>
+          </ul>
+        </div>
+        <div className="absolute bottom-20 left-20 z-20">
+          asdd
+          <InformationBox />
         </div>
       </div>
     </div>
