@@ -1,37 +1,36 @@
 import { useState, useEffect } from "react"
+import { NavLink } from "react-router-dom";
 import { TbLetterU } from "react-icons/tb";
-import { LuGlobe, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
+import { LuGrid2X2, LuLayoutDashboard, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
 
 function Sidebar() {
-  const [mode, setMode] = useState('Dashboard')
+  const getButtonClass = ({ isActive }) => {
+    `p-2 cursor-pointer rounded-md ${isActive} ? 'bg-surface-color border border-border-color' : 'bg-bg-color'`
+  }
 
   return (
-    <div className="flex flex-col h-dvh w-12 items-center bg-bg-color justify-between">
+    <div className="flex flex-col h-dvh w-12 items-center bg-bg-color justify-between py-5">
       <div className="flex flex-col text-xl gap-15 mt-15">
-        <TbLetterU className="text-xl" />
-        <div className="flex flex-col gap-2">
-          <button onClick={() => setMode('Dashboard')}
-            className={`p-2 cursor-pointer rounded-md ${mode === 'Dashboard' ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`}>
-            <LuGlobe />
-          </button>
+        <TbLetterU className="text-xl mx-auto text-text-primary" />
+        <div className="flex flex-col gap-6">
 
-          <button onClick={() => setMode('Ship')}
-            className={`p-2 cursor-pointer rounded-md ${mode === 'Ship' ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`}>
+          <NavLink to='/' className={getButtonClass} title='Dashboard'>
+            <LuGrid2X2 />
+          </NavLink>
+
+          <NavLink to='/ship' className={getButtonClass} title='Ship'>
             <LuShip />
-          </button>
+          </NavLink>
 
-          <button onClick={() => setMode('Aircraft')}
-            className={`p-2 cursor-pointer rounded-md ${mode === 'Aircraft' ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`}>
+          <NavLink to='/aircraft' className={getButtonClass} title='Aircraft'>
             <LuPlane />
-          </button>
+          </NavLink>
         </div>
       </div>
       <div className="mb-15">
-        <button onClick={() => setMode('User')}
-          className={`p-2 cursor-pointer rounded-md ${mode === 'User' ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`}
-        >
+        <NavLink to='/user' className={getButtonClass} title='User'>
           <LuUserRound />
-        </button>
+        </NavLink>
       </div>
     </div >
   )

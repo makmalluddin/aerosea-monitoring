@@ -1,21 +1,12 @@
-import { useState, useEffect } from "react"
 import "leaflet/dist/leaflet.css"
-import Sidebar from "./Sidebar";
-import MapCanvas from "../maps/MapCanvas";
-import InformationBox from "../../utils/InformationBox";
+import MapCanvas from "../features/maps/MapCanvas"
+import InformationBox from "../utils/InformationBox";
 import { LuLayers2, LuActivity, LuCompass } from "react-icons/lu";
-import { RiLiveLine, RiHistoryLine } from "react-icons/ri";
-import { dashboardData } from "../../assets/dashboardData";
+import { dashboardData } from "../assets/dashboardData";
 
 function Dashboard() {
-  const centerMap = [-2.548926, 118.014863];
-  const [mode, setMode] = useState('dashboard')
-
   return (
-    <div className="flex relative w-full h-full overflow-hidden">
-      {/* Sidebar  */}
-      <Sidebar />
-
+    <div className="flex relative w-full h-full min-h-screen overflow-hidden">
       {/* Main Menu */}
       <div className="flex-1 h-full w-full relative">
         <MapCanvas />
@@ -47,27 +38,27 @@ function Dashboard() {
             </p>
 
             <div className="flex flex-col justify-between gap-2">
-              <div className="flex item-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="p-1">
                   <LuLayers2 />
                 </div>
                 <div>
-                  <h3 className="text-md text-text-primary-">Dual Mode</h3>
+                  <h3 className="text-md">Dual Mode</h3>
                   <p className="text-sm text-text-secondary">Menampilkan data historis dan data real-time</p>
                 </div>
               </div>
 
-              <div className="flex item-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="p-1">
                   <LuActivity />
                 </div>
                 <div>
-                  <h3 className="text-md text-text-primary-">Real-time Stream</h3>
+                  <h3 className="text-md">Real-time Stream</h3>
                   <p className="text-sm text-text-secondary">Integrasi API eksternal untuk real-time data</p>
                 </div>
               </div>
 
-              <div className="flex item-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="p-1">
                   <LuCompass />
                 </div>

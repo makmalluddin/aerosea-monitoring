@@ -1,13 +1,22 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
-import Dashboard from './features/layout/Dashboard';
+import Dashboard from './pages/Dashboard';
+import Sidebar from './features/layout/Sidebar';
+import Ship from './pages/Ship';
 
 function App() {
-  const centerMap = [-2.548926, 118.014863];
-
   return (
-    <div className='flex flex-col h-screen w-full overflow-hidden bg-white text-black'>
-      <Dashboard />
-    </div>
+    <BrowserRouter>
+      <div className='flex bg-bg-color h-screen w-full overflow-hidden'>
+        <Sidebar />
+        <main className='flex-1'>
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/ship' element={<Ship />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   )
 }
 
