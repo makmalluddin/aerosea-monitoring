@@ -3,6 +3,9 @@ import "leaflet/dist/leaflet.css"
 import Sidebar from "./Sidebar";
 import MapCanvas from "../maps/MapCanvas";
 import InformationBox from "../../utils/InformationBox";
+import { LuLayers2, LuActivity, LuCompass } from "react-icons/lu";
+import { RiLiveLine, RiHistoryLine } from "react-icons/ri";
+import { dashboardData } from "../../assets/dashboardData";
 
 function Dashboard() {
   const centerMap = [-2.548926, 118.014863];
@@ -36,22 +39,62 @@ function Dashboard() {
           <h1 className="text-3xl text-text-primary">
             Aerosea Monitoring
           </h1>
+          <div className="w-2/5">
+            <p className="my-2 text-text-secondary">
+              Platform monitoring yang menggabungkan data
+              real-time dan historis dari lalu lintas udara
+              dan perairan di wilayah Indonesia.
+            </p>
 
-          <p className="my-2 w-2/5 text-text-secondary">
-            Platform monitoring yang menggabungkan data
-            real-time dan historis dari lalu lintas udara
-            dan perairan di wilayah Indonesia.
-          </p>
+            <div className="flex flex-col justify-between gap-2">
+              <div className="flex item-center gap-2">
+                <div className="p-1">
+                  <LuLayers2 />
+                </div>
+                <div>
+                  <h3 className="text-md text-text-primary-">Dual Mode</h3>
+                  <p className="text-sm text-text-secondary">Menampilkan data historis dan data real-time</p>
+                </div>
+              </div>
 
-          <ul className="list-inside list-disc">
-            <li>Dual Mode</li>
-            <li>Real-time Data</li>
-            <li>Air And Sea Scope</li>
-          </ul>
+              <div className="flex item-center gap-2">
+                <div className="p-1">
+                  <LuActivity />
+                </div>
+                <div>
+                  <h3 className="text-md text-text-primary-">Real-time Stream</h3>
+                  <p className="text-sm text-text-secondary">Integrasi API eksternal untuk real-time data</p>
+                </div>
+              </div>
+
+              <div className="flex item-center gap-2">
+                <div className="p-1">
+                  <LuCompass />
+                </div>
+                <div>
+                  <h3 className="text-md text-text-primary-">Air & Sea Scope</h3>
+                  <p className="text-sm text-text-secondary">Monitoring dua jenis armada, laut dan udara</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+
+        {/* Layer Informasi */}
         <div className="absolute bottom-20 left-20 z-20">
-          asdd
-          <InformationBox />
+          <div className="flex gap-4">
+            {dashboardData.map((item) => (
+              <InformationBox
+                key={item.id}
+                typeData={item.typeData}
+                nameData={item.nameData}
+                icon={item.icon}
+                description={item.description}
+                exampleData={item.exampleData}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

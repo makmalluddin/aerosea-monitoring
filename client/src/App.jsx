@@ -1,9 +1,4 @@
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MapCanvas from './features/maps/MapCanvas';
-import Navbar from './features/maps/Navbar';
-import Footer from './features/maps/Footer';
-import Sidebar from './features/layout/Sidebar';
 import Dashboard from './features/layout/Dashboard';
 
 function App() {
