@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom";
 import { TbLetterU } from "react-icons/tb";
-import { LuGrid2X2, LuLayoutDashboard, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
+import { LuGrid2X2, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
 
 function Sidebar() {
   const getButtonClass = ({ isActive }) => {
-    `p-2 cursor-pointer rounded-md ${isActive} ? 'bg-surface-color border border-border-color' : 'bg-bg-color'`
+    return `p-2 cursor-pointer rounded-md ${isActive ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`
   }
 
   return (

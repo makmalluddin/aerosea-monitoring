@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import HistoricalMapLayer from './HistoricalMapLayer';
 
-// Komponen pembantu untuk memaksa Leaflet menghitung ulang ukurannya setelah routing
+// Function to help leaflet recalculate size after routing 
 function MapResizer() {
   const map = useMap();
   useEffect(() => {
-    // Memaksa recalculate size agar peta tidak abu-abu setelah navigasi
     setTimeout(() => {
       map.invalidateSize();
     }, 100);
@@ -23,24 +23,18 @@ function MapCanvas() {
         center={centerMap}
         zoom={5}
         scrollWheelZoom={true}
-        style={{ height: '100%', width: '100%' }} // Memastikan tinggi peta pasti 100%
+        style={{ height: '100%', width: '100%' }}
       >
         <MapResizer />
 
-        {/* Map openstreetmap / Esri */}
+        {/* Map Esri */}
         <TileLayer
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
           attribution='Tiles &copy; <a href="https://www.esri.com/">Esri</a>'
         />
 
-        {/* Marker example */}
-        <Marker position={centerMap}>
-          <Popup>
-            <div className='text-green-500 font-semibold'>
-              Ini adalah contoh
-            </div>
-          </Popup>
-        </Marker>
+        {/* Layer for historical data */}
+        <HistoricalMapLayer />
       </MapContainer>
     </div>
   );

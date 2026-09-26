@@ -1,10 +1,9 @@
 # Env variables & secrets 
 PRD.md
 Teknis.md
+timeline.txt
+visual.html
 test.html
-logo.html
-moodboard.html
-moodboard2.html
 **/.env
 *.pem
 *.key
