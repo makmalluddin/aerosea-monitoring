@@ -17,45 +17,63 @@ export function useHistoricalPlayback(speedMs = 100) {
 
   // Synchronize ref with state react (for manual slider soon)
   useEffect(() => {
+    if (Math.abs(currentIndexRef.current - playbackIndex) > 1) {
+
+      const rebuiltMarkers = {};
+
+      for (let i = 0; i <= playbackIndex; i++) {
+        const data = rawDataRef.current[i];
+        if (data && entityKey && data[entityKey]) {
+          rebuiltMarkers[data[entityKey]] = data;
+        }
+      }
+      setActiveMarkers(rebuiltMarkers);
+    }
     currentIndexRef.current = playbackIndex;
-  }, [playbackIndex]);
+  }, [playbackIndex, rawDataRef, entityKey, setActiveMarkers]);
 
   useEffect(() => {
     let intervalId;
 
     if (isPlaying) {
+      const TICK_RATE = Math.max(speedMs, 100);
+
+      // Speed control by data read, not rendering data 
+      const stepsPerTick = speedMs < 100 ? Math.floor(100 / speedMs) : 1;
+
       intervalId = setInterval(() => {
         const dataLength = rawDataRef.current.length;
 
-        // Checking index if reach last array data
         if (currentIndexRef.current >= dataLength) {
           clearInterval(intervalId);
           setIsPlaying(false);
           return;
         }
 
-        // Read data from useRef 
-        const currentData = rawDataRef.current[currentIndexRef.current];
+        const batchedUpdates = {};
+        let stepCount = 0;
 
-        // Get unique key like mmsi or callsign 
-        if (currentData && entityKey) {
-          const uniqueId = currentData[entityKey];
+        while (stepCount < stepsPerTick && currentIndexRef.current < dataLength) {
+          const currentData = rawDataRef.current[currentIndexRef.current];
 
-          // Upsert data, to update marker 
-          if (uniqueId) {
-            setActiveMarkers(prevMarkers => ({
-              ...prevMarkers,
-              [uniqueId]: currentData
-            }));
+          if (currentData && entityKey) {
+            const uniqueId = currentData[entityKey];
+            if (uniqueId) {
+              batchedUpdates[uniqueId] = currentData;
+            }
           }
+          currentIndexRef.current += 1;
+          stepCount++;
         }
 
-        currentIndexRef.current += 1;
+        setActiveMarkers(prevMarkers => ({
+          ...prevMarkers,
+          ...batchedUpdates
+        }));
 
-        // Notify UI index changed 
         setPlaybackIndex(currentIndexRef.current);
 
-      }, speedMs);
+      }, TICK_RATE);
     }
 
     // Cleanup data if intervalID stop 
