@@ -1,45 +1,51 @@
-import { Marker, Popup } from 'react-leaflet';
+import { memo } from 'react';
+import { Marker } from 'react-leaflet';
 import { useMonitoring } from '../../services/MonitoringContext';
-import { getEntityIcon } from '../../services/mapIcons.jsx'
+import { getEntityIcon } from '../../services/mapIcons';
+
+// Use react memo 
+const EntityMarker = memo(({ data, activeMode, id }) => {
+  const { setSelectedEntityId } = useMonitoring();
+
+  const lat = data.latitude;
+  const lng = data.longitude;
+  const heading = data.course || data.heading || 0;
+
+  if (!lat || !lng) return null;
+
+  return (
+    <Marker
+      position={[lat, lng]}
+      icon={getEntityIcon(activeMode, heading)}
+      eventHandlers={{
+        click: () => setSelectedEntityId(id)
+      }}
+    />
+  );
+}, (prevProps, nextProps) => {
+  return (
+    prevProps.data.latitude === nextProps.data.latitude &&
+    prevProps.data.longitude === nextProps.data.longitude &&
+    (prevProps.data.course || prevProps.data.heading) === (nextProps.data.course || nextProps.data.heading)
+  );
+});
 
 function HistoricalMapLayer() {
   const { activeMarkers, activeMode } = useMonitoring();
-
-  // Convert hash map to array 
   const markersArray = Object.values(activeMarkers);
 
-  // If data does not exist, make sure not to render anything
   if (markersArray.length === 0) return null;
 
   return (
     <>
-      {markersArray.map((data) => {
-        const id = data.mmsi || data.callsign;
-        const lat = data.latitude;
-        const lng = data.longitude;
-        const heading = data.course || data.heading || 0;
-        const speed = data.speed || 0;
-
-        if (!lat || !lng) return null;
-
-        return (
-          <Marker
-            key={id}
-            position={[lat, lng]}
-            icon={getEntityIcon(activeMode, heading)}
-          >
-            <Popup className="rounded-lg">
-              <div className="font-sans text-sm">
-                <strong className="block text-accent-color mb-1">
-                  {activeMode === 'Ship' ? 'Kapal' : 'Pesawat'} ({id})
-                </strong>
-                <p className="m-0 text-text-secondary">Kecepatan: {speed} knots</p>
-                <p className="m-0 text-text-secondary">Arah: {heading}°</p>
-              </div>
-            </Popup>
-          </Marker>
-        );
-      })}
+      {markersArray.map((data) => (
+        <EntityMarker
+          key={data.mmsi || data.callsign}
+          id={data.mmsi || data.callsign}
+          data={data}
+          activeMode={activeMode}
+        />
+      ))}
     </>
   );
 }

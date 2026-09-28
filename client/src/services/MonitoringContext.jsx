@@ -16,6 +16,7 @@ export function MonitoringProvider({ children }) {
   const [playbackIndex, setPlaybackIndex] = useState(0);
   const [entityKey, setEntityKey] = useState('');
   const [isDataReady, setIsDataReady] = useState(false);
+  const [selectedEntityId, setSelectedEntityId] = useState(null);
 
   // Kamus Data untuk Leaflet (Format: { "666543210": { ...data } })
   const [activeMarkers, setActiveMarkers] = useState({});
@@ -78,7 +79,10 @@ export function MonitoringProvider({ children }) {
   const resetPlayback = useCallback(() => {
     setIsPlaying(false);
     setPlaybackIndex(0);
-    setActiveMarkers({}); // Kosongkan peta
+    setActiveMarkers({});
+    setIsDataReady(false);
+    setSelectedEntityId(null);
+    rawDataRef.current = [];
   }, []);
 
   // Export all value 
@@ -90,6 +94,7 @@ export function MonitoringProvider({ children }) {
     isPlaying, setIsPlaying,
     playbackIndex, setPlaybackIndex,
     entityKey, activeMarkers, setActiveMarkers,
+    selectedEntityId, setSelectedEntityId,
     // Ref
     rawDataRef,
     // Actions
