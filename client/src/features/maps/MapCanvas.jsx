@@ -23,6 +23,7 @@ function MapCanvas() {
         center={centerMap}
         zoom={5}
         scrollWheelZoom={true}
+        onDragStart={() => setIsPlaying(False)}
         style={{ height: '100%', width: '100%' }}
       >
         <MapResizer />

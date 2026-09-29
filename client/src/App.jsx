@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import Dashboard from './pages/Dashboard';
 import Sidebar from './features/layout/Sidebar';
 import Ship from './pages/Ship';
+import Aircraft from './pages/Aircraft';
 import Example from './pages/Example';
 import { MonitoringProvider } from './services/MonitoringContext';
 import LoadingOverlay from './features/layout/LoadingOverlay';
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/ship' element={<Ship />} />
+              <Route path='/aircraft' element={<Aircraft />} />
               <Route path='/example' element={<Example />} />
             </Routes>
           </main>
