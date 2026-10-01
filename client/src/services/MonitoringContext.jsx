@@ -42,7 +42,7 @@ export function MonitoringProvider({ children }) {
         setEntityKey('mmsi');
       } else if (mode === 'Aircraft') {
         endpoint = '/api/aircraft';
-        setEntityKey('callsign');
+        setEntityKey('Callsign');
       }
 
       setLoadingMessage(`Sedang Mengunduh Data  ${mode}...`);

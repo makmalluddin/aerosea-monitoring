@@ -9,7 +9,7 @@ const EntityMarker = memo(({ data, activeMode, id }) => {
 
   const lat = data.latitude;
   const lng = data.longitude;
-  const heading = data.course || data.heading || 0;
+  const heading = data.course || data.Heading || 0;
 
   if (!lat || !lng) return null;
 
@@ -26,7 +26,7 @@ const EntityMarker = memo(({ data, activeMode, id }) => {
   return (
     prevProps.data.latitude === nextProps.data.latitude &&
     prevProps.data.longitude === nextProps.data.longitude &&
-    (prevProps.data.course || prevProps.data.heading) === (nextProps.data.course || nextProps.data.heading)
+    (prevProps.data.course || prevProps.data.Heading) === (nextProps.data.course || nextProps.data.Heading)
   );
 });
 
@@ -40,8 +40,8 @@ function HistoricalMapLayer() {
     <>
       {markersArray.map((data) => (
         <EntityMarker
-          key={data.mmsi || data.callsign}
-          id={data.mmsi || data.callsign}
+          key={data.mmsi || data.Callsign}
+          id={data.mmsi || data.Callsign}
           data={data}
           activeMode={activeMode}
         />
