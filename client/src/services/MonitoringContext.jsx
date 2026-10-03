@@ -1,27 +1,31 @@
 import { createContext, useContext, useState, useRef, useCallback } from 'react';
+import { io } from 'socket.io-client'
 
 const MonitoringContext = createContext();
 
 export function MonitoringProvider({ children }) {
-  // Gunakan useRef untuk simpan data 
+  // useRef to store data 
   const rawDataRef = useRef([]);
 
-  // Status UI Global
+  // UI Status Global 
   const [activeMode, setActiveMode] = useState('Dashboard');
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
 
-  // Status Playback & Marker
+  // Playback & Marker Status
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackIndex, setPlaybackIndex] = useState(0);
   const [entityKey, setEntityKey] = useState('');
   const [isDataReady, setIsDataReady] = useState(false);
   const [selectedEntityId, setSelectedEntityId] = useState(null);
 
-  // Kamus Data untuk Leaflet (Format: { "666543210": { ...data } })
+  // Live data ref 
+  const socketRef = useRef(null);
+
+  // Active Marker Logic 
   const [activeMarkers, setActiveMarkers] = useState({});
 
-  // Fungi untuk fetch data dari backend 
+  // Function to fetch historical data  
   const loadHistoricalData = useCallback(async (mode) => {
     // Loading with overlay 
     setIsLoading(true);
@@ -69,21 +73,71 @@ export function MonitoringProvider({ children }) {
       console.error("Gagaal Memuat data: ", error);
       alert("Gagal memuat data!");
     } finally {
-      // Matikan Loading 
       setIsLoading(false);
       setLoadingMessage('');
     }
   }, []);
 
-  // Fungsi untuk reset playback 
+  // Function to handle socket.io data 
+  // Function to disconnect socket.io 
+  const disconnectSocket = useCallback(() => {
+    if (socketRef.current) {
+      socketRef.current.emit('leave-room', activeMode);
+      socketRef.current.disconnect();
+      socketRef.current = null;
+    }
+  }, [activeMode]);
+
+  // Functon to reset data 
   const resetPlayback = useCallback(() => {
+    disconnectSocket();
     setIsPlaying(false);
     setPlaybackIndex(0);
     setActiveMarkers({});
     setIsDataReady(false);
     setSelectedEntityId(null);
     rawDataRef.current = [];
-  }, []);
+  }, [disconnectSocket]);
+
+  // Function to connect socket.io by room 
+  const connectLiveSocket = useCallback((mode) => {
+    resetPlayback();
+    setActiveMode(mode);
+    setIsLoading(true);
+    setLoadingMessage(`Menghubungkan ke server Live ${mode}...`);
+
+    // Ganti URL dengan host backend Anda
+    const socket = io('http://localhost:5000');
+    socketRef.current = socket;
+
+    socket.on('connect', () => {
+      setIsLoading(false);
+      setLoadingMessage('');
+      setIsDataReady(true);
+      // Panggil listener join-room dari backend Anda
+      socket.emit('join-room', mode);
+    });
+
+    const eventName = mode === 'Ship' ? 'ship-pipe' : 'aircraft-pipe';
+    const key = mode === 'Ship' ? 'mmsi' : 'Callsign';
+
+    socket.on(eventName, (incomingData) => {
+      const entityId = incomingData[key];
+
+      if (entityId) {
+        setActiveMarkers(prevMarkers => ({
+          ...prevMarkers,
+          [entityId]: incomingData
+        }));
+      }
+    });
+
+    socket.on('connect_error', () => {
+      setIsLoading(false);
+      alert('Gagal terhubung ke server Live');
+    });
+
+  }, [resetPlayback]);
 
   // Export all value 
   const value = {
@@ -98,7 +152,8 @@ export function MonitoringProvider({ children }) {
     // Ref
     rawDataRef,
     // Actions
-    loadHistoricalData, resetPlayback
+    loadHistoricalData, resetPlayback,
+    connectLiveSocket, disconnectSocket
   };
 
   return (
