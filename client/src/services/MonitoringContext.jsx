@@ -122,6 +122,7 @@ export function MonitoringProvider({ children }) {
     const key = mode === 'Ship' ? 'mmsi' : 'Callsign';
 
     socket.on(eventName, (incomingData) => {
+      console.log(`[Socket ${eventName}] Data masuk:`, incomingData);
       const entityId = incomingData[key];
 
       if (entityId) {

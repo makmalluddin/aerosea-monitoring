@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import HistoricalMapLayer from './HistoricalMapLayer';
+import EntityMapLayer from './EntityMapLayer';
 
 // Function to help leaflet recalculate size after routing 
 function MapResizer() {
@@ -35,7 +36,8 @@ function MapCanvas() {
         />
 
         {/* Layer for historical data */}
-        <HistoricalMapLayer />
+        {/* <HistoricalMapLayer /> */}
+        <EntityMapLayer />
       </MapContainer>
     </div>
   );
