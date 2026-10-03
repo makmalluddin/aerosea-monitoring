@@ -7,16 +7,16 @@ import DetailPanel from "../utils/DetailPanel";
 
 function Aircraft() {
   // Function to load data 
-  const { loadHistoricalData, isDataReady, clearHistoricalData } = useMonitoring();
+  const { loadHistoricalData, isDataReady, resetPlayback } = useMonitoring();
 
   // Clean data Logic 
   useEffect(() => {
     return () => {
-      if (clearHistoricalData) {
-        clearHistoricalData();
+      if (resetPlayback) {
+        resetPlayback();
       }
     };
-  }, [clearHistoricalData]);
+  }, [resetPlayback]);
 
   return (
     <div className="flex relative w-full h-full overflow-hidden">

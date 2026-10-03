@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom";
 import { TbLetterU } from "react-icons/tb";
 import { LuGrid2X2, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
+import { useMonitoring } from "../../services/MonitoringContext";
 
 function Sidebar() {
+  const { resetPlayback } = useMonitoring();
   const getButtonClass = ({ isActive }) => {
     return `p-2 cursor-pointer rounded-md ${isActive ? 'bg-surface-color border border-border-color' : 'bg-bg-color'}`
   }
@@ -14,15 +15,15 @@ function Sidebar() {
         <TbLetterU className="text-xl mx-auto text-text-primary" />
         <div className="flex flex-col gap-6">
 
-          <NavLink to='/' className={getButtonClass} title='Dashboard'>
+          <NavLink to='/' className={getButtonClass} title='Dashboard' onClick={resetPlayback}>
             <LuGrid2X2 />
           </NavLink>
 
-          <NavLink to='/ship' className={getButtonClass} title='Ship'>
+          <NavLink to='/ship' className={getButtonClass} title='Ship' onClick={resetPlayback}>
             <LuShip />
           </NavLink>
 
-          <NavLink to='/aircraft' className={getButtonClass} title='Aircraft'>
+          <NavLink to='/aircraft' className={getButtonClass} title='Aircraft' onClick={resetPlayback}>
             <LuPlane />
           </NavLink>
         </div>
