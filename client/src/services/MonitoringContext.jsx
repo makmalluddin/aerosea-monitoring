@@ -85,6 +85,8 @@ export function MonitoringProvider({ children }) {
       socketRef.current.emit('leave-room', activeMode);
       socketRef.current.disconnect();
       socketRef.current = null;
+      setIsDataReady(false);
+      setActiveMarkers({});
     }
   }, [activeMode]);
 
@@ -106,36 +108,43 @@ export function MonitoringProvider({ children }) {
     setIsLoading(true);
     setLoadingMessage(`Menghubungkan ke server Live ${mode}...`);
 
-    // Ganti URL dengan host backend Anda
     const socket = io('http://localhost:5000');
     socketRef.current = socket;
+
+    const roomName = mode === 'Ship' ? 'ship-room' : 'aircraft-room';
+    const eventName = mode === 'Ship' ? 'ship-pipe' : 'aircraft-pipe';
+    const primaryKey = mode === 'Ship' ? 'mmsi' : 'callsign';
 
     socket.on('connect', () => {
       setIsLoading(false);
       setLoadingMessage('');
       setIsDataReady(true);
-      // Panggil listener join-room dari backend Anda
-      socket.emit('join-room', mode);
+      socket.emit('join-room', roomName);
     });
 
-    const eventName = mode === 'Ship' ? 'ship-pipe' : 'aircraft-pipe';
-    const key = mode === 'Ship' ? 'mmsi' : 'Callsign';
-
     socket.on(eventName, (incomingData) => {
-      console.log(`[Socket ${eventName}] Data masuk:`, incomingData);
-      const entityId = incomingData[key];
+      // Make sure the data is processed in Array 
+      const dataArray = Array.isArray(incomingData) ? incomingData : [incomingData];
 
-      if (entityId) {
-        setActiveMarkers(prevMarkers => ({
-          ...prevMarkers,
-          [entityId]: incomingData
-        }));
-      }
+      setActiveMarkers((prevMarkers) => {
+        const newMarkers = { ...prevMarkers };
+
+        dataArray.forEach((item) => {
+          // Use callsign if aircraft didnt have callsign 
+          const entityId = item[primaryKey] || item.icao24;
+
+          if (entityId && item.latitude && item.longitude) {
+            newMarkers[entityId] = item;
+          }
+        });
+
+        return newMarkers;
+      });
     });
 
     socket.on('connect_error', () => {
       setIsLoading(false);
-      alert('Gagal terhubung ke server Live');
+      alert('Backend is off');
     });
 
   }, [resetPlayback]);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMonitoring } from '../services/MonitoringContext';
-import { LuHistory, LuRadio } from 'react-icons/lu';
+import { LuHistory, LuRadio, LuPowerOff } from 'react-icons/lu';
 
 function ModeControlPanel({ entityType }) {
   // Declare variable 
@@ -10,11 +10,18 @@ function ModeControlPanel({ entityType }) {
   const handleSubModeChange = (newMode) => {
     if (newMode !== subMode) {
       resetPlayback();
+
+      if (subMode === 'Live') {
+        disconnectSocket();
+      }
+
       setSubMode(newMode);
     }
   };
 
   const title = entityType === 'Ship' ? 'Mode Kapal Laut' : 'Mode Pesawat Terbang';
+  const indicatorColorPing = isDataReady ? 'bg-green-400' : 'bg-red-400';
+  const indicatorColorSolid = isDataReady ? 'bg-green-400' : 'bg-red-500';
 
   return (
     <div className="bg-surface-color/90 backdrop-blur-md border border-border-color p-4 rounded-xl shadow-lg shrink-0">
@@ -25,9 +32,9 @@ function ModeControlPanel({ entityType }) {
 
         {/* Live Indicator*/}
         {subMode === 'Live' && (
-          <span className="flex h-3 w-3 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          <span className="flex h-3 w-3 relative" title={isDataReady ? "Terhubung" : "Terputus"}>
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${indicatorColorPing} opacity-75`}></span>
+            <span className={`relative inline-flex rounded-full h-3 w-3 ${indicatorColorSolid}`}></span>
           </span>
         )}
       </div>
@@ -37,7 +44,7 @@ function ModeControlPanel({ entityType }) {
         <button
           onClick={() => handleSubModeChange('Live')}
           className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all cursor-pointer ${subMode === 'Live'
-            ? 'bg-surface-color text-green-500 shadow-sm'
+            ? 'bg-surface-color text-black shadow-sm'
             : 'text-text-secondary hover:text-text-primary'
             }`}
         >
@@ -46,7 +53,7 @@ function ModeControlPanel({ entityType }) {
         <button
           onClick={() => handleSubModeChange('Historis')}
           className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all cursor-pointer ${subMode === 'Historis'
-            ? 'bg-surface-color text-accent-color shadow-sm'
+            ? 'bg-surface-color text-black shadow-sm'
             : 'text-text-secondary hover:text-text-primary'
             }`}
         >
@@ -54,7 +61,7 @@ function ModeControlPanel({ entityType }) {
         </button>
       </div>
 
-      {/* Konten Dinamis Berdasarkan Sub-Mode */}
+      {/* Dynamic Content by SubMode */}
       {subMode === 'Historis' ? (
         <div className="animate-fade-in">
           <p className="text-xs text-text-secondary mb-3 leading-relaxed">
@@ -76,13 +83,23 @@ function ModeControlPanel({ entityType }) {
           <p className="text-xs text-text-secondary mb-3 leading-relaxed">
             Data real-time yang terhubung melalui Socket.io.
           </p>
-          <button
-            onClick={() => connectLiveSocket(entityType)}
-            className="w-full flex justify-center items-center gap-2 bg-surface-color text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-bg-color px-4 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
-          >
-            <LuRadio className="text-lg" />
-            Hubungkan Server
-          </button>
+          {isDataReady ? (
+            <button
+              onClick={() => disconnectSocket()}
+              className="w-full flex justify-center items-center gap-2 bg-surface-color text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-bg-color px-4 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+            >
+              <LuPowerOff className="text-lg" />
+              Disconnect Server
+            </button>
+          ) : (
+            <button
+              onClick={() => connectLiveSocket(entityType)}
+              className="w-full flex justify-center items-center gap-2 bg-surface-color text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-bg-color px-4 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+            >
+              <LuRadio className="text-lg" />
+              Connect Server
+            </button>
+          )}
         </div>
       )}
 

@@ -1,14 +1,15 @@
 import { memo } from 'react';
 import { useMonitoring } from '../../services/MonitoringContext';
-import { Marker, Popup } from 'react-leaflet';
-import { getEntityIcon } from '../../services/mapIcons';  // Gunakan icon yang sudah Anda buat
+import { Marker, Tooltip } from 'react-leaflet';
+import { getEntityIcon } from '../../services/mapIcons';
 
-// Pisahkan EntityMarker dan gunakan memo agar React tidak merender ulang kapal yang tidak bergerak
+// Funtion to get entity by Memo to avoid react to re rendering
 const EntityMarker = memo(({ data, activeMode, id, onSelect }) => {
-  // Gunakan fallback kapitalisasi yang sama seperti sebelumnya
+  // Fallback to different data 
   const lat = data.latitude || data.lat;
   const lng = data.longitude || data.lon || data.lng;
-  const heading = data.course || data.heading || data.Heading || 0;
+  const heading = data.course || data.heading || data.Heading || data.cog || 0;
+  const displayName = data.shipname || data.callsign || id;
 
   if (!lat || !lng) return null;
 
@@ -20,26 +21,42 @@ const EntityMarker = memo(({ data, activeMode, id, onSelect }) => {
         click: () => onSelect(id),
       }}
     >
-      {/* Opsional: Tambahkan tooltip/popup cepat jika diperlukan */}
+      <Tooltip direction="auto" offset={[0, -10]} opacity={0.9}>
+        <div className="flex flex-col gap-1 text-sm min-w-120px">
+          <span className="font-bold border-b border-gray-300 pb-1 mb-1">
+            {displayName}
+          </span>
+          <div className="max-h-200px overflow-y-auto custom-scrollbar flex flex-col gap-1">
+            {Object.entries(data).map(([key, value]) => {
+              // Abaikan data yang kosong agar rapi
+              if (value === null || value === undefined || value === '') return null;
+
+              return (
+                <div key={key} className="flex justify-between gap-4 border-b border-gray-100/50 pb-0.5">
+                  <span className="text-gray-500 capitalize">{key.replace(/_/g, ' ')}</span>
+                  <span className="font-semibold text-gray-800 text-right truncate">
+                    {value}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Tooltip>
     </Marker>
   );
 });
 
-// Komponen Utama Layer
+// Function Main Layer
 function EntityMapLayer() {
   const { activeMarkers, activeMode, setSelectedEntityId } = useMonitoring();
-
-  // Ubah object { "525119038": {...data} } menjadi array [{...data}]
   const markersArray = Object.values(activeMarkers);
 
   if (markersArray.length === 0) return null;
-
   return (
     <>
       {markersArray.map((data) => {
-        // Ekstrak ID agar kebal terhadap perbedaan format API
         const id = data.mmsi || data.callsign || data.Callsign;
-
         return (
           <EntityMarker
             key={id}
