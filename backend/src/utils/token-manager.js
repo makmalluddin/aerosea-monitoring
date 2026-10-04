@@ -22,6 +22,8 @@ const getToken = async () => {
 
   // If status token inactive or almost inactive, get new token 
   try {
+    console.log(clientID)
+    console.log(clientSecret);
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
     params.append('client_id', clientID);
@@ -43,7 +45,7 @@ const getToken = async () => {
   }
 
   catch (error) {
-    console.error('Gagal fetch token:', error.message);
+    console.error('Gagal fetch token:', error.response ? error.response.data : error.message);
     throw error;
   }
 }

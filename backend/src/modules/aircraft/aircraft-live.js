@@ -32,7 +32,7 @@ const fetchData = async () => {
   }
 
   catch (error) {
-    console.log('Gagal Fetch Data: ', error.message);
+    console.log('Gagal Fetch Data: ', error.response ? error.response.data : error.message);
   }
 }
 
@@ -42,7 +42,7 @@ const airService = (io) => {
     // Fetch and send data with socket.io
     const getData = await fetchData();
     io.to('aircraft-room').emit('aircraft-pipe', getData);
-  }, 10000)
+  }, 15000)
 }
 
 // Export module function 
