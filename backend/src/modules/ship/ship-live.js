@@ -62,13 +62,17 @@ const shipLive = () => {
 const aisService = (io) => {
   // Run socket
   shipLive();
-  setInterval(() => {
+  setInterval(async () => {
     if (temporaryData.size > 0) {
+      // Check if anyone is in the room
+      const sockets = await io.in('ship-room').fetchSockets();
+      const room = sockets.length;
 
-      // Send data with socket.io 
-      io.to('ship-room').emit('ship-pipe', Array.from(temporaryData.values()));
+      if (room > 0) {
+        // Send data with socket.io 
+        io.to('ship-room').emit('ship-pipe', Array.from(temporaryData.values()));
+      }
       temporaryData.clear();
-
     }
   }, 2000)
 };

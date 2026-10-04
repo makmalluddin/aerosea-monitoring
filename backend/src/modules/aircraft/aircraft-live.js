@@ -39,7 +39,14 @@ const fetchData = async () => {
 // Function to streaming data in socket.io 
 const airService = (io) => {
   setInterval(async () => {
-    // Fetch and send data with socket.io
+    // Check if anyone is in the room 
+    const sockets = await io.in('aircraft-room').fetchSockets();
+    const room = sockets.length;
+    if (!room || room.size === 0) {
+      return
+    }
+
+    // Fetch and send data with socket.io if anyone is in the room
     const getData = await fetchData();
     io.to('aircraft-room').emit('aircraft-pipe', getData);
   }, 15000)
