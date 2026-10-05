@@ -25,7 +25,7 @@ function DiagnosticPanel({ serviceType }) { // 'api' | 'ship' | 'aircraft'
       }
     },
     ship: {
-      title: "Aisstream (Kapal)",
+      title: "Aisstream.io",
       subtitle: "WSS Room: 'ship-room'",
       buttonText: "Connect",
       buttonColor: "bg-teal-500/20 text-teal-500 hover:bg-teal-500 hover:text-white",
@@ -59,7 +59,7 @@ function DiagnosticPanel({ serviceType }) { // 'api' | 'ship' | 'aircraft'
       }
     },
     aircraft: {
-      title: "OpenSky (Pesawat)",
+      title: "OpenSky Network",
       subtitle: "WSS Room: 'aircraft-room'",
       buttonText: "Connect",
       buttonColor: "bg-sky-500/20 text-sky-500 hover:bg-sky-500 hover:text-white",

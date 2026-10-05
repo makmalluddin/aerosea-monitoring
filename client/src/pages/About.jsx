@@ -1,26 +1,18 @@
-import { useState } from 'react';
-import { LuServer, LuShip, LuPlane, LuActivity } from 'react-icons/lu';
-import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiSocketdotio, SiTailwindcss, SiLeaflet, SiDocker } from "react-icons/si";
 import { IoWarningOutline } from "react-icons/io5";
 import ToogleButton from '../utils/ToogleButton';
 import DiagnosticPanel from '../utils/DiagnosticPanel';
 import { TechStackData } from '../assets/TechStackData';
+import { DataTerms, shipTerms, aircraftTerms } from "../assets/DataTerms";
 
 function About() {
-  const [openHistoris, setOpenHistoris] = useState(false);
-  const [openLive, setOpenLive] = useState(false);
-  const [openKeyFeatures1, setOpenKeyFeatures1] = useState(false);
-  const [openKeyFeatures2, setOpenKeyFeatures2] = useState(false);
-  const [openKeyFeatures3, setOpenKeyFeatures3] = useState(false);
-
   return (
-    <div className="w-full h-full overflow-y-auto custom-scrollbar p-6 md:p-8 flex justify-center">
-      <div className="max-w-5xl w-full space-y-6 pb-20">
+    <div className="flex relative w-full p-10 justify-center">
+      <div className="max-w-5xl w-full space-y-6 pb-10">
 
         {/* Header Section */}
         <div className="flex items-center gap-5 pb-2 border-b border-border-color/50">
           <div>
-            <h1 className="text-4xl font-bold text-text-primary tracking-tight">
+            <h1 className="text-4xl font-bold text-text-primary tracking-tight mt-18">
               Aerosea Monitoring
             </h1>
           </div>
@@ -159,7 +151,41 @@ function About() {
           </div>
         </div>
 
+        {/* Glosarium Section */}
+        <div className="flex flex-col gap-4 leading-relaxed">
+          <h1 className="text-3xl font-bold"> Glosarium </h1>
+          <p>
+            Berikut adalah daftar istilah yang digunakan dalam aplikasi berdasarkan dokumentasi dari Aisstream.io dan OpenSky Network
+          </p>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
+
+            {/* Kolom Ship */}
+            <div className="flex flex-col gap-3">
+              <h3 className="font-semibold text-xl text-text-primary border-b border-border-color/50 pb-2">
+                Vessel
+              </h3>
+              <ul className="space-y-4 text-md text-text-secondary">
+                {shipTerms.map((item, index) => (
+                  <DataTerms key={index} term={item.term} desc={item.desc} />
+                ))}
+              </ul>
+            </div>
+
+            {/* Kolom Aircraft */}
+            <div className="flex flex-col gap-3">
+              <h3 className="font-semibold text-xl text-text-primary border-b border-border-color/50 pb-2">
+                Aircraft
+              </h3>
+              <ul className="space-y-4 text-md text-text-secondary">
+                {aircraftTerms.map((item, index) => (
+                  <DataTerms key={index} term={item.term} desc={item.desc} />
+                ))}
+              </ul>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   );

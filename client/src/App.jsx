@@ -15,7 +15,7 @@ function App() {
         <LoadingOverlay />
         <div className='flex bg-bg-color h-screen w-full overflow-hidden'>
           <Sidebar />
-          <main className='flex-1'>
+          <main className='flex-1 h-full overflow-y-auto'>
             <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/ship' element={<Ship />} />
