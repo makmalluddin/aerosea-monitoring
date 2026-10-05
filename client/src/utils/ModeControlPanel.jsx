@@ -19,12 +19,12 @@ function ModeControlPanel({ entityType }) {
     }
   };
 
-  const title = entityType === 'Ship' ? 'Mode Kapal Laut' : 'Mode Pesawat Terbang';
+  const title = entityType === 'Ship' ? 'Vessel Mode' : 'Aircraft Mode';
   const indicatorColorPing = isDataReady ? 'bg-green-400' : 'bg-red-400';
   const indicatorColorSolid = isDataReady ? 'bg-green-400' : 'bg-red-500';
 
   return (
-    <div className="bg-surface-color/90 backdrop-blur-md border border-border-color p-4 rounded-xl shadow-lg shrink-0">
+    <div className="bg-surface-color/90 border border-border-color p-4 rounded-md shadow-lg shrink-0">
 
       {/* Header Panel */}
       <div className="flex justify-between items-center mb-4 gap-4">
@@ -40,7 +40,7 @@ function ModeControlPanel({ entityType }) {
       </div>
 
       {/* Toggle Switch */}
-      <div className="flex bg-bg-color p-1 rounded-lg mb-4 border border-border-color/50">
+      <div className="flex bg-bg-color p-1 rounded-md mb-4 border border-border-color/50">
         <button
           onClick={() => handleSubModeChange('Live')}
           className={`flex-1 py-1.5 text-sm font-semibold rounded-md transition-all cursor-pointer ${subMode === 'Live'
@@ -64,12 +64,12 @@ function ModeControlPanel({ entityType }) {
       {/* Dynamic Content by SubMode */}
       {subMode === 'Historis' ? (
         <div className="animate-fade-in">
-          <p className="text-xs text-text-secondary mb-3 leading-relaxed">
+          <p className="text-xs text-text-secondary mb-3">
             Data historis yang disimpan dalam database
           </p>
           <button
             onClick={() => loadHistoricalData(entityType)}
-            className={`w-full flex justify-center items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors border cursor-pointer ${isDataReady
+            className={`w-full flex justify-center items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold transition-colors border cursor-pointer ${isDataReady
               ? 'bg-accent-color text-bg-color border-transparent'
               : 'bg-surface-color text-accent-color border-accent-color/30 hover:bg-accent-color hover:text-bg-color'
               }`}
@@ -80,13 +80,13 @@ function ModeControlPanel({ entityType }) {
         </div>
       ) : (
         <div className="animate-fade-in">
-          <p className="text-xs text-text-secondary mb-3 leading-relaxed">
+          <p className="text-xs text-text-secondary mb-3">
             Data real-time yang terhubung melalui Socket.io.
           </p>
           {isDataReady ? (
             <button
               onClick={() => disconnectSocket()}
-              className="w-full flex justify-center items-center gap-2 bg-surface-color text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-bg-color px-4 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+              className="w-full flex justify-center items-center gap-2 bg-surface-color text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-bg-color px-4 py-2 rounded-md text-sm font-semibold transition-colors cursor-pointer"
             >
               <LuPowerOff className="text-lg" />
               Disconnect Server
@@ -94,7 +94,7 @@ function ModeControlPanel({ entityType }) {
           ) : (
             <button
               onClick={() => connectLiveSocket(entityType)}
-              className="w-full flex justify-center items-center gap-2 bg-surface-color text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-bg-color px-4 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+              className="w-full flex justify-center items-center gap-2 bg-surface-color text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-bg-color px-4 py-2 rounded-md text-sm font-semibold transition-colors cursor-pointer"
             >
               <LuRadio className="text-lg" />
               Connect Server
