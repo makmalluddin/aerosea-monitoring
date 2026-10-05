@@ -72,7 +72,7 @@ function Dashboard() {
 
         </div>
 
-        {/* Layer Informasi */}
+        {/* Layer Information */}
         <div className="absolute bottom-20 left-20 z-20">
           <div className="flex gap-4">
             {DashboardData.map((item) => (

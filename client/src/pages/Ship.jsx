@@ -15,7 +15,7 @@ function Ship() {
         <DetailPanel />
       </div>
 
-      {/* Playbac Control */}
+      {/* Playback Control */}
       <PlaybackControls />
     </div>
   )

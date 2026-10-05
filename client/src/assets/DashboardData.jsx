@@ -58,7 +58,6 @@ export const DashboardData = [
             <span className="text-xs font-bold text-green-500 tracking-wide">Connected</span>
           </div>
         </div>
-
       </div>
     ),
   },
