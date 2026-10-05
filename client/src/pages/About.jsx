@@ -3,11 +3,13 @@ import ToogleButton from '../utils/ToogleButton';
 import DiagnosticPanel from '../utils/DiagnosticPanel';
 import { TechStackData } from '../assets/TechStackData';
 import { DataTerms, shipTerms, aircraftTerms } from "../assets/DataTerms";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
 
 function About() {
   return (
-    <div className="flex relative w-full p-10 justify-center">
-      <div className="max-w-5xl w-full space-y-6 pb-10">
+    <div className="flex relative w-full p-10 justify-center bg-bg-color">
+      <div className="max-w-5xl w-full space-y-6">
 
         {/* Header Section */}
         <div className="flex items-center gap-5 pb-2 border-b border-border-color/50">
@@ -185,6 +187,60 @@ function About() {
             </div>
 
           </div>
+        </div>
+
+        {/* Footer Section */}
+        <div className="flex justify-between items-center mt-16 pt-8 border-t border-border-color/50 text-text-secondary">
+          {/* Copyright & Disclaimer */}
+          <div className="flex flex-col gap-1.5">
+            <p className="text-sm font-medium text-text-primary">
+              © 2026 Muhammad Akmalluddin. Developed during internship at PT IndoMega Teknologi.
+            </p>
+            <p className="text-xs opacity-75">
+              Data provided by{' '}
+              <a
+                href="https://aisstream.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:text-text-primary hover:underline transition-colors"
+              >
+                Aisstream.io
+              </a>{' '}
+              and{' '}
+              <a
+                href="https://opensky-network.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:text-text-primary hover:underline transition-colors"
+              >
+                OpenSky Network
+              </a>
+              . Used for educational and non-commercial purposes.
+            </p>
+          </div>
+
+          {/*  Social Links */}
+          <div className="flex items-center gap-5">
+            {[
+              { id: 'github', icon: FaGithub, url: 'https://github.com/makmalluddin', hover: 'hover:text-text-primary' },
+              { id: 'linkedin', icon: FaLinkedin, url: 'https://linkedin.com/in/makmalluddin', hover: 'hover:text-[#0A66C2]' },
+              { id: 'email', icon: IoMail, url: 'mailto:makmalluddin123@gmail.com', hover: 'hover:text-[#EA4335]' }
+            ].map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.id}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-xl text-text-secondary transition-colors duration-200 cursor-pointer ${social.hover}`}
+                >
+                  <Icon />
+                </a>
+              );
+            })}
+          </div>
+
         </div>
       </div>
     </div>

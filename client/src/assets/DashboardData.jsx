@@ -8,7 +8,7 @@ export const DashboardData = [
     nameData: "Riwayat Pergerakan Kapal",
     icon: RiHistoryLine,
     description:
-      "Data yang saya kumpulkan menggunakan sistem IoT AIS Receiver pada kegiatan magang di PT IndoMega Teknologi.",
+      "Data yang diperoleh menggunakan sistem IoT AIS Receiver pada kegiatan internship di PT IndoMega Teknologi.",
     exampleData: (
       <div className="flex items-baseline gap-1">
         <span>125+</span>
@@ -22,7 +22,7 @@ export const DashboardData = [
     nameData: "Riwayat Pergerakan Pesawat",
     icon: RiHistoryLine,
     description:
-      "Dataset log penerbangan pesawat saya dapatkan pada kegiatan magang di PT IndoMega Teknologi.",
+      "Dataset log penerbangan pesawat di dapatkan pada kegiatan internship di PT IndoMega Teknologi.",
     exampleData: (
       <div className="flex items-baseline gap-1">
         <span>3</span>
@@ -36,20 +36,29 @@ export const DashboardData = [
     nameData: "Live Stream Traffic",
     icon: RiLiveLine,
     description:
-      "Data real-time yang saya dapatkan dari integrasi API eksternal, Aisstream.IO dan Open Sky Network.",
+      "Data real-time yang di dapatkan dari integrasi API eksternal, Aisstream.IO dan Open Sky Network.",
     exampleData: (
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1">
+        {/* Static Ship Indicator */}
+        <div className="flex items-center gap-1.5">
           <LuShip className="text-sm text-text-secondary" />
-          <span className="text-base font-bold">14</span>
-          <span className="text-[10px] text-text-secondary">Kapal</span>
+          <div className="flex items-center gap-1.5 px-1.5 py-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+            <span className="text-xs font-bold text-green-500 tracking-wide">Connected</span>
+          </div>
         </div>
-        <span className="text-border-color">|</span>
-        <div className="flex items-center gap-1">
+
+        <span className="text-border-color/50">|</span>
+
+        {/* Indikator Status Pesawat */}
+        <div className="flex items-center gap-1.5">
           <LuPlane className="text-sm text-text-secondary" />
-          <span className="text-base font-bold">8</span>
-          <span className="text-[10px] text-text-secondary">Pesawat</span>
+          <div className="flex items-center gap-1.5 px-1.5 py-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+            <span className="text-xs font-bold text-green-500 tracking-wide">Connected</span>
+          </div>
         </div>
+
       </div>
     ),
   },
