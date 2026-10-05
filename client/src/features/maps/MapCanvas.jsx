@@ -34,7 +34,7 @@ function MapCanvas() {
           attribution='Tiles &copy; <a href="https://www.esri.com/">Esri</a>'
         />
 
-        {/* Layer for historical data */}
+        {/* Layer for marker data */}
         <EntityMapLayer />
       </MapContainer>
     </div>

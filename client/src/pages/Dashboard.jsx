@@ -2,7 +2,7 @@ import "leaflet/dist/leaflet.css"
 import MapCanvas from "../features/maps/MapCanvas"
 import InformationBox from "../utils/InformationBox";
 import { LuLayers2, LuActivity, LuCompass } from "react-icons/lu";
-import { dashboardData } from "../assets/dashboardData";
+import { DashboardData } from "../assets/DashboardData";
 
 function Dashboard() {
   return (
@@ -75,7 +75,7 @@ function Dashboard() {
         {/* Layer Informasi */}
         <div className="absolute bottom-20 left-20 z-20">
           <div className="flex gap-4">
-            {dashboardData.map((item) => (
+            {DashboardData.map((item) => (
               <InformationBox
                 key={item.id}
                 typeData={item.typeData}

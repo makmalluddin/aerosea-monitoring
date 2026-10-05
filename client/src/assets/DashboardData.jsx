@@ -1,7 +1,7 @@
 import { RiHistoryLine, RiLiveLine } from "react-icons/ri";
 import { LuPlane, LuShip } from "react-icons/lu";
 
-export const dashboardData = [
+export const DashboardData = [
   {
     id: "historis-kapal",
     typeData: "Data Historis",

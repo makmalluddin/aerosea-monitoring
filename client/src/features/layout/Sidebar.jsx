@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { TbLetterU } from "react-icons/tb";
-import { LuGrid2X2, LuPlane, LuShip, LuUserRound } from "react-icons/lu";
+import { LuGrid2X2, LuPlane, LuShip, LuInfo } from "react-icons/lu";
 import { useMonitoring } from "../../services/MonitoringContext";
 
 function Sidebar() {
@@ -28,9 +28,9 @@ function Sidebar() {
           </NavLink>
         </div>
       </div>
-      <div className="mb-15">
-        <NavLink to='/user' className={getButtonClass} title='User'>
-          <LuUserRound />
+      <div className="flex mb-15">
+        <NavLink to='/about' className={getButtonClass} title='about'>
+          <LuInfo />
         </NavLink>
       </div>
     </div >

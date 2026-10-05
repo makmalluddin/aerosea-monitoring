@@ -49,8 +49,8 @@ aisService(io);
 airService(io);
 
 // routing basic
-app.get('/', (req, res) => {
-  res.send('Root Routing');
+app.get('/api/health', (req, res) => {
+  res.send('Api Ok!');
 });
 
 // aircraft routing 

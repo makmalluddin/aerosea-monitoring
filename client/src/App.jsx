@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Sidebar from './features/layout/Sidebar';
 import Ship from './pages/Ship';
 import Aircraft from './pages/Aircraft';
-import Example from './pages/Example';
+import About from './pages/About';
 import { MonitoringProvider } from './services/MonitoringContext';
 import LoadingOverlay from './features/layout/LoadingOverlay';
 
@@ -20,7 +20,7 @@ function App() {
               <Route path='/' element={<Dashboard />} />
               <Route path='/ship' element={<Ship />} />
               <Route path='/aircraft' element={<Aircraft />} />
-              <Route path='/example' element={<Example />} />
+              <Route path='/about' element={<About />} />
             </Routes>
           </main>
         </div>

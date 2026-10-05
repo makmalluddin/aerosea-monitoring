@@ -22,8 +22,6 @@ function DetailPanel() {
         </div>
       </div>
 
-      {/* List Entitas Minimalis */}
-      {/* PERBAIKAN: Hapus max-h-100 dan tambahkan min-h-0 agar flex-1 bisa memicu overflow-y-auto */}
       <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar min-h-0">
         {totalEntities === 0 ? (
           <p className="text-sm text-text-secondary text-center mt-10">
