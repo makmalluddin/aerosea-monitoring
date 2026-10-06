@@ -3,6 +3,7 @@ import ToogleButton from '../utils/ToogleButton';
 import DiagnosticPanel from '../utils/DiagnosticPanel';
 import { TechStackData } from '../assets/TechStackData';
 import { DataTerms, shipTerms, aircraftTerms } from "../assets/DataTerms";
+import { imageGalery, GalleryCard } from "../utils/GaleryCard";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 
@@ -54,18 +55,27 @@ function About() {
             <h2 className='text-xl'>Resource Data</h2>
             <ul className='list-none space-y-1 text-text-secondary'>
               <ToogleButton title='Historis'>
-                <p className='text-justify text-sm '>
+                <p className='text-justify text-md'>
                   Data historis kapal saya dapatkan dari perangkat IoT Ais Receiver yang saya rakit untuk mengumpulkan data AIS kapal di sekitar kantor.
                   Sementara itu, data historis rute penerbangan pesawat adalah dataset penerbangan pesawat secara utuh untuk keperluan pembelajaran.
                 </p>
                 {/* Placeholder Image*/}
-                <div className='w-full max-w-xl h-48 bg-bg-color border border-dashed border-border-color rounded-md flex flex-col items-center justify-center text-xs opacity-70'>
-                  <span>[ Tempat Sisipkan Gambar/Skema Historis ]</span>
+                <div className='w-full mt-6'>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {imageGalery.map((item) => (
+                      <GalleryCard
+                        key={item.id}
+                        src={item.src}
+                        alt={item.alt}
+                        caption={item.caption}
+                      />
+                    ))}
+                  </div>
                 </div>
               </ToogleButton>
 
               <ToogleButton title='Live'>
-                <p className='text-justify text-sm leading-relaxed'>
+                <p className='text-justify text-md leading-relaxed'>
                   Data live real-time saya dapatkan melalui koneksi Socket.io yang saya build di Node.js dan terintegrasi dengan layanan API
                   pihak ketiga. Aplikasi ini menghubungkan aliran data websocket dari <span className='font-bold text-teal-600'>Aisstream.io </span>
                   untuk pergerakan kapal yang terupdate setiap 2 detik, lalu saya menggunakan smart pooling ke REST API dari
