@@ -12,7 +12,8 @@ function PlaybackControls() {
     playbackIndex,
     setPlaybackIndex,
     rawDataRef,
-    resetPlayback
+    resetPlayback,
+    resetTimelineProgress
   } = useMonitoring();
 
   // Local state to manage speed 
@@ -28,7 +29,7 @@ function PlaybackControls() {
 
   return (
     <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-1000 w-[90%] max-w-3xl">
-      <div className="bg-surface-color/85 backdrop-blur-md border border-border-color rounded-xl p-4 shadow-2xl flex items-center gap-6">
+      <div className="bg-surface-color/85 backdrop-blur-md border border-border-color rounded-md p-4 shadow-2xl flex items-center gap-6">
 
         <div className="flex items-center gap-3 border-r border-border-color pr-6">
           <button
@@ -40,7 +41,7 @@ function PlaybackControls() {
           </button>
 
           <button
-            onClick={resetPlayback}
+            onClick={resetTimelineProgress}
             className="w-10 h-10 flex items-center justify-center text-text-secondary hover:text-red-500 hover:bg-red-500/10 rounded-full transition-colors"
             title="Stop & Reset"
           >
@@ -49,10 +50,10 @@ function PlaybackControls() {
         </div>
 
         {/* Timeline Slider */}
-        <div className="flex-1 flex flex-col gap-2">
-          <div className="flex justify-between items-center text-xs font-mono text-text-secondary font-semibold">
-            <span>Indeks Data: {playbackIndex}</span>
-            <span>Total: {totalData}</span>
+        <div className="flex-1 flex flex-col gap-3">
+          <div className="flex justify-between items-center text-sm font-mono text-text-secondary font-semibold">
+            <span>Progress: {Math.round(playbackIndex * 100 / totalData)}%</span>
+            <span>Total: 100%</span>
           </div>
 
           <input
@@ -61,7 +62,7 @@ function PlaybackControls() {
             max={totalData > 0 ? totalData - 1 : 0}
             value={playbackIndex}
             onChange={(e) => setPlaybackIndex(Number(e.target.value))}
-            className="w-full h-2 bg-bg-color rounded-lg appearance-none cursor-pointer accent-accent-color"
+            className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-accent-color"
           />
         </div>
 
@@ -73,10 +74,10 @@ function PlaybackControls() {
             onChange={(e) => setSpeedMs(Number(e.target.value))}
             className="bg-bg-color border border-border-color text-text-primary text-sm rounded-md p-1.5 cursor-pointer outline-none focus:border-accent-color"
           >
-            <option value={1000}>1x (Lambat)</option>
-            <option value={500}>2x (Santai)</option>
-            <option value={100}>10x (Normal)</option>
-            <option value={20}>50x (Ngebut)</option>
+            <option value={1000}>1x</option>
+            <option value={500}>2x</option>
+            <option value={100}>10x</option>
+            <option value={20}>50x</option>
           </select>
         </div>
 

@@ -101,6 +101,13 @@ export function MonitoringProvider({ children }) {
     rawDataRef.current = [];
   }, [disconnectSocket]);
 
+  // Function to reset timeline slider 
+  const resetTimelineProgress = () => {
+    setIsPlaying(false);
+    setActiveMarkers({});
+    setPlaybackIndex(-1);
+  };
+
   // Function to connect socket.io by room 
   const connectLiveSocket = useCallback((mode) => {
     resetPlayback();
@@ -163,6 +170,7 @@ export function MonitoringProvider({ children }) {
     rawDataRef,
     // Actions
     loadHistoricalData, resetPlayback,
+    resetTimelineProgress,
     connectLiveSocket, disconnectSocket
   };
 
