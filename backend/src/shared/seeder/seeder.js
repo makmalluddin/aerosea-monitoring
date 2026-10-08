@@ -6,7 +6,7 @@ const path = require('path');
 
 const seedData = async () => {
   try {
-    // Hitung data di database dahulu
+    // Make sure data in database
     const shipTotal = await Ship.countDocuments();
     const aircraftTotal = await Aircraft.countDocuments();
 
@@ -14,13 +14,12 @@ const seedData = async () => {
     const shipDir = path.join(__dirname, './ship.json');
     const aircraftDir = path.join(__dirname, './aircraft.json');
 
-    // Pengkondisian berdasarkan kondisi database 
+    // If else based on database condition
     if (shipTotal === 0 && aircraftTotal === 0) {
-      // Parsing data json
       const shipData = JSON.parse(fs.readFileSync(shipDir, 'utf-8'));
       const aircraftData = JSON.parse(fs.readFileSync(aircraftDir, 'utf-8'));
 
-      // Inject data kapal dan pesawat 
+      // Input data
       await Ship.insertMany(shipData);
       await Aircraft.insertMany(aircraftData);
       console.log('Data berhasil diinput ke database')
