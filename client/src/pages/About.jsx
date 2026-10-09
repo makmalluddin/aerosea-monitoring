@@ -204,17 +204,17 @@ function About() {
           {/* Copyright & Disclaimer */}
           <div className="flex flex-col gap-1.5">
             <p className="text-sm font-medium text-text-primary">
-              © 2026 Muhammad Akmalluddin. Developed during internship at PT IndoMega Teknologi.
+              © 2026 Muhammad Akmalluddin.
             </p>
             <p className="text-xs opacity-75">
-              Data provided by{' '}
+              Data provided by <span className="font-medium">PT IndoMega Teknologi,</span>{' '}
               <a
                 href="https://aisstream.io/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium hover:text-text-primary hover:underline transition-colors"
               >
-                Aisstream.io
+                Aisstream.io,
               </a>{' '}
               and{' '}
               <a
