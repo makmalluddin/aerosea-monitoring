@@ -28,8 +28,7 @@ const EntityMarker = memo(({ data, activeMode, id, onSelect }) => {
           </span>
           <div className="max-h-200px overflow-y-auto custom-scrollbar flex flex-col gap-1">
             {Object.entries(data).map(([key, value]) => {
-              // Abaikan data yang kosong agar rapi
-              if (value === null || value === undefined || value === '') return null;
+              if (value === null || value === undefined || value === '' || key.toLowerCase() === '_id') return null;
 
               return (
                 <div key={key} className="flex justify-between gap-4 border-b border-gray-100/50 pb-0.5">
