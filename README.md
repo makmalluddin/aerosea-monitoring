@@ -1,9 +1,13 @@
-<img width="1920" height="480" alt="Untitled design" src="https://github.com/user-attachments/assets/c12c5b3c-02cc-4577-aa8b-ef6628751635" />
+<img width="1920" height="480" alt="Cover" src="https://github.com/user-attachments/assets/c12c5b3c-02cc-4577-aa8b-ef6628751635" />
 
 # Aerosea Monitoring
+
 Aplikasi web-based yang dibangun sebagai platform monitoring pergerakan vessel dan pesawat, baik secara real-time maupun historis. Platform ini 
 memungkinkan user melakukan pemantauan setiap objek dengan jelas disertai informasi detailnya, ditambah dengan integrasi layanan pihak ketiga membuat
 scope pengamatan tidak terbatas pada data historis saja.
+<div align="center">
+  <img width="720" alt="image" src="https://github.com/user-attachments/assets/39d2b0ec-a739-4381-b972-9b74e3e5e0e7" />
+</div>
 
 ## Key Features
 - <b> Dual Mode & SubMode Monitoring </b> : Monitoring dinamis sesuai preferensi user.
