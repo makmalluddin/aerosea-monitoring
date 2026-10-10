@@ -172,7 +172,7 @@ function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2">
 
-            {/* Kolom Ship */}
+            {/* Ship Column*/}
             <div className="flex flex-col gap-3">
               <h3 className="font-semibold text-xl text-text-primary border-b border-border-color/50 pb-2">
                 Vessel
@@ -184,7 +184,7 @@ function About() {
               </ul>
             </div>
 
-            {/* Kolom Aircraft */}
+            {/* Aircraft Column */}
             <div className="flex flex-col gap-3">
               <h3 className="font-semibold text-xl text-text-primary border-b border-border-color/50 pb-2">
                 Aircraft
