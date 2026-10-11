@@ -16,6 +16,7 @@ function Sidebar() {
         <RiRadarFill className="text-xl mx-auto text-text-primary" />
         <div className="flex flex-col gap-6">
 
+          {/* Sidebar */}
           <NavLink to='/' className={getButtonClass} title='Dashboard' onClick={resetPlayback}>
             <LuGrid2X2 />
           </NavLink>
