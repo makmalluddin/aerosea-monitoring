@@ -102,7 +102,6 @@ function ModeControlPanel({ entityType }) {
           )}
         </div>
       )}
-
     </div>
   );
 }

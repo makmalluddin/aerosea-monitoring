@@ -201,6 +201,7 @@ function About() {
 
         {/* Footer Section */}
         <div className="flex justify-between items-center mt-16 pt-8 border-t border-border-color/50 text-text-secondary">
+
           {/* Copyright & Disclaimer */}
           <div className="flex flex-col gap-1.5">
             <p className="text-sm font-medium text-text-primary">
